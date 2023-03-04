@@ -70,7 +70,7 @@ function correct() {
 }
 
 function wrong() {
-    result.textContent = "Wrong!";
+    result.textContent = "Wrong! 15 points lost..";
     countWrong++;
 }
 
