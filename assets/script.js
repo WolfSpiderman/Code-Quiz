@@ -13,6 +13,7 @@ var result = document.querySelector('.result');
 var countRight = 0;
 var countWrong = 0;
 var hiscore = 0;
+var highscore= document.querySelector('#highscore');
 
 var q1 = "What value type is fasle?";
 var q1A = [
@@ -62,15 +63,22 @@ var q6A = [
     q6d = "Current"
 ]; //answer = q6c, this
 
-
 {
+function highScore() {
+    var hiInitial = localStorage.getItem("Name");
+    var hiScore = localStorage.getItem("Hiscore");
+    alert("The current highscore is held by " + hiInitial + " with a score of " + hiScore + ".");
+}
+    
+highscore.addEventListener("click", highScore);    
+
 function correct() {
     result.textContent = "Correct!";
     countRight++;
 }
 
 function wrong() {
-    result.textContent = "Wrong! 15 points lost..";
+    result.textContent = "Wrong!";
     countWrong++;
 }
 
@@ -80,7 +88,7 @@ function answer6(event) {
     } else {
         wrong();
     }        
-    
+    // Final question executes extra code to collect and save data, and partially reset the game
     timerDisplay.style.display = "none";
     question.textContent = ("                 ");
     btnA.textContent = " ";
@@ -237,8 +245,9 @@ function startTimer() {
     time = 90;
     var timer = setInterval(function() {
       time--;
-      timerDisplay.textContent = time;
-      if (time === 0) {
+      timeScore = (time - (countWrong * 15));
+      timerDisplay.textContent = timeScore;
+      if (timeScore === 0) {
         clearInterval(timer);
         loseGame();
       }
