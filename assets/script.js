@@ -64,6 +64,7 @@ var q6A = [
 ]; //answer = q6c, this
 
 {
+    // Displays the current highscore
 function highScore() {
     var hiInitial = localStorage.getItem("Name");
     var hiScore = localStorage.getItem("Hiscore");
@@ -79,7 +80,7 @@ function correct() {
 
 function wrong() {
     result.textContent = "Wrong!";
-    countWrong++;
+    countWrong++; //this one is important for the timer
 }
 
 function answer6(event) {
@@ -100,9 +101,9 @@ function answer6(event) {
     ansSection.removeEventListener("click", answer6);
     alert("You answered all questions with " + countRight + " correct answers, and a remaining time of " + time + "!");
     var score = (time - (countWrong * 15));
-    alert("You got " + countWrong + " answers wrong. Your final score is " + score + "!");
+    alert("You got " + countWrong + " answers wrong. Your final score is " + score + "!"); //calculates and displays final score
     hiscore = localStorage.getItem("Hiscore");
-    if (score > hiscore) {
+    if (score > hiscore) { // only asks for, and then saves, initials if the user beat the previous high score in the client's local storage
         localStorage.setItem("Hiscore", score);
         var initials = prompt("Please enter your initials.");
         localStorage.setItem("Name", initials);
@@ -118,7 +119,7 @@ function question6() {
 
     ansSection.addEventListener("click", answer6);
 }
-
+// Each question has a function to display the question and answers, and add the event listener, and a function to detemine whether right or wrong after answer is clicked, then launch the next question and finally remove the event listener.
 function answer5(event) {
     if (event.target === btnD) {
         correct();
@@ -210,7 +211,7 @@ function answer1(event) {
 }
 
 function question1() {
-    startTimer();
+    startTimer(); // timer start
     question.textContent = ("Q1: " + q1);
     btnA.textContent = q1a;
     btnB.textContent = q1b;
@@ -219,7 +220,7 @@ function question1() {
 
     ansSection.addEventListener("click", answer1);
 }
-
+// Removes the start button, resets the points from the previous game, and starts the first question
 function startQuiz(event) {
     event.preventDefault;
     root.removeChild(startBtn);
@@ -228,7 +229,7 @@ function startQuiz(event) {
     countWrong = 0;
     question1();
 }
-
+// lose game function ends game and resets question and answers displays
 function loseGame() {
     if (timerDisplay.style.display !== "none") {
         alert("Time is up. Better luck next time.");
@@ -239,13 +240,13 @@ function loseGame() {
     btnD.textContent = " ";
     }
 }
-
+// timer function
 function startTimer() {
     timerDisplay.style.display = "block";
     time = 90;
     var timer = setInterval(function() {
       time--;
-      timeScore = (time - (countWrong * 15));
+      timeScore = (time - (countWrong * 15)); // variable used to update timer display when a question is answered incorrectly
       timerDisplay.textContent = timeScore;
       if (timeScore === 0) {
         clearInterval(timer);
